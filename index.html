@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es-AR">
+<html lang="es-AR" class="p-celeste">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -57,10 +57,11 @@ html.p-coral[data-theme="dark"] { --bg: #0b1719; --surface: #122326; --ink: #e6f
 
 /* Fondo en movimiento: manchas de color suaves que flotan detrás del contenido */
 .bg-motion { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.bg-motion canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .bg-motion i { position: absolute; width: 70vmax; height: 70vmax; border-radius: 50%; will-change: transform; }
-.bg-motion i:nth-child(1) { background: radial-gradient(circle, var(--brand) 0, transparent 62%); opacity: .22; top: -28vmax; left: -22vmax; animation: drift1 24s ease-in-out infinite alternate; }
-.bg-motion i:nth-child(2) { background: radial-gradient(circle, var(--marker) 0, transparent 62%); opacity: .30; top: 5vh; right: -34vmax; animation: drift2 30s ease-in-out infinite alternate; }
-.bg-motion i:nth-child(3) { background: radial-gradient(circle, var(--brand) 0, transparent 60%); opacity: .14; bottom: -40vmax; left: 10vw; animation: drift3 36s ease-in-out infinite alternate; }
+.bg-motion i:nth-child(1) { background: radial-gradient(circle, var(--brand) 0, transparent 62%); opacity: .35; top: -28vmax; left: -22vmax; animation: drift1 16s ease-in-out infinite alternate; }
+.bg-motion i:nth-child(2) { background: radial-gradient(circle, var(--marker) 0, transparent 62%); opacity: .40; top: 5vh; right: -34vmax; animation: drift2 20s ease-in-out infinite alternate; }
+.bg-motion i:nth-child(3) { background: radial-gradient(circle, var(--brand) 0, transparent 60%); opacity: .22; bottom: -40vmax; left: 10vw; animation: drift3 24s ease-in-out infinite alternate; }
 @keyframes drift1 { to { transform: translate(22vw, 26vh) scale(1.15); } }
 @keyframes drift2 { to { transform: translate(-26vw, 34vh) scale(.9); } }
 @keyframes drift3 { to { transform: translate(18vw, -30vh) scale(1.2); } }
@@ -223,7 +224,7 @@ footer { padding-block: 40px; border-top: 1px solid var(--line); display: grid; 
 <style>html{color-scheme:light}body{margin:0}img{max-width:100%}</style>
 </head>
 <body>
-<div class="bg-motion" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="bg-motion" aria-hidden="true"><i></i><i></i><i></i><canvas id="net"></canvas></div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7c.1.2 1.9 2.9 4.6 4 1.7.7 2.4.8 3.2.6.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.4-.3Z"/></symbol>
@@ -529,6 +530,46 @@ form.addEventListener("submit", async (e) => {
 });
 document.getElementById("again").addEventListener("click", backToForm);
 document.getElementById("alt-back").addEventListener("click", backToForm);
+
+// Fondo: red de puntos que se conectan (emprendedores y profesionales), en movimiento lento
+(() => {
+  const c = document.getElementById("net");
+  if (!c || !c.getContext) return;
+  const ctx = c.getContext("2d");
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let w, h, dpr, pts = [], color = "#1463c7", raf = 0;
+  function readColor() { color = getComputedStyle(document.documentElement).getPropertyValue("--brand").trim() || color; }
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = c.clientWidth; h = c.clientHeight;
+    c.width = w * dpr; c.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.round(Math.min(70, Math.max(28, (w * h) / 16000)));
+    pts = Array.from({ length: n }, () => ({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35, r: 1.5 + Math.random() * 2 }));
+  }
+  function frame() {
+    ctx.clearRect(0, 0, w, h);
+    const max = Math.min(160, w / 4);
+    for (const p of pts) {
+      if (!still) { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > w) p.vx *= -1; if (p.y < 0 || p.y > h) p.vy *= -1; }
+    }
+    ctx.strokeStyle = color; ctx.fillStyle = color;
+    for (let i = 0; i < pts.length; i++) {
+      const a = pts[i];
+      for (let j = i + 1; j < pts.length; j++) {
+        const b = pts[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d < max) { ctx.globalAlpha = (1 - d / max) * .35; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+      }
+      ctx.globalAlpha = .55; ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    if (!still) raf = requestAnimationFrame(frame);
+  }
+  function start() { cancelAnimationFrame(raf); readColor(); resize(); frame(); }
+  addEventListener("resize", () => { clearTimeout(start.t); start.t = setTimeout(start, 200); });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { readColor(); if (still) frame(); });
+  document.addEventListener("visibilitychange", () => { if (still) return; if (document.hidden) cancelAnimationFrame(raf); else raf = requestAnimationFrame(frame); });
+  start();
+})();
 </script>
 
 </body>
