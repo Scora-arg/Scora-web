@@ -26,23 +26,45 @@
   --display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
   --body: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --r: 14px;
+  --mark-a: 100%;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #0c1614; --surface: #13211e; --ink: #e9f2ee; --muted: #9fb3ac; --line: #26382f;
     --brand: #4cc8a6; --brand-ink: #062019; --marker: #ffd23f; --marker-ink: #14201c;
-    --soft: #172a25; --wa: #3cc57a; --danger: #ff8a80; color-scheme: dark;
+    --soft: #172a25; --wa: #3cc57a; --danger: #ff8a80; --mark-a: 45%; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0c1614; --surface: #13211e; --ink: #e9f2ee; --muted: #9fb3ac; --line: #26382f;
   --brand: #4cc8a6; --brand-ink: #062019; --marker: #ffd23f; --marker-ink: #14201c;
-  --soft: #172a25; --wa: #3cc57a; --danger: #ff8a80; color-scheme: dark;
+  --soft: #172a25; --wa: #3cc57a; --danger: #ff8a80; --mark-a: 45%; color-scheme: dark;
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+/* Paletas alternativas: se activan con la clase p-<nombre> en <html> */
+html.p-celeste { --bg: #f2f6fb; --surface: #ffffff; --ink: #0c1a2e; --muted: #4a5b72; --line: #d5deea; --brand: #1463c7; --brand-ink: #ffffff; --marker: #ffc93c; --marker-ink: #0c1a2e; --soft: #e1ebf8 }
+@media (prefers-color-scheme: dark) { html.p-celeste:not([data-theme="light"]) { --bg: #0a1220; --surface: #111c2e; --ink: #e8eef7; --muted: #9aabc2; --line: #22314a; --brand: #6aa8ff; --brand-ink: #07162b; --marker: #ffc93c; --marker-ink: #14120a; --soft: #15233a; color-scheme: dark } }
+html.p-celeste[data-theme="dark"] { --bg: #0a1220; --surface: #111c2e; --ink: #e8eef7; --muted: #9aabc2; --line: #22314a; --brand: #6aa8ff; --brand-ink: #07162b; --marker: #ffc93c; --marker-ink: #14120a; --soft: #15233a; color-scheme: dark }
+html.p-violeta { --bg: #f6f4fc; --surface: #ffffff; --ink: #1a1433; --muted: #5a5275; --line: #e0dbef; --brand: #5b3bd6; --brand-ink: #ffffff; --marker: #c8f04a; --marker-ink: #1a1433; --soft: #ece7fb }
+@media (prefers-color-scheme: dark) { html.p-violeta:not([data-theme="light"]) { --bg: #110d1f; --surface: #1a1530; --ink: #efeaff; --muted: #aca4c8; --line: #2e2748; --brand: #a58bff; --brand-ink: #140c33; --marker: #c8f04a; --marker-ink: #151a05; --soft: #221b3d; color-scheme: dark } }
+html.p-violeta[data-theme="dark"] { --bg: #110d1f; --surface: #1a1530; --ink: #efeaff; --muted: #aca4c8; --line: #2e2748; --brand: #a58bff; --brand-ink: #140c33; --marker: #c8f04a; --marker-ink: #151a05; --soft: #221b3d; color-scheme: dark }
+html.p-coral { --bg: #f5f7f7; --surface: #ffffff; --ink: #10292f; --muted: #4b6167; --line: #d6e0e2; --brand: #0f5563; --brand-ink: #ffffff; --marker: #ff8a65; --marker-ink: #1a1310; --soft: #e2eef0 }
+@media (prefers-color-scheme: dark) { html.p-coral:not([data-theme="light"]) { --bg: #0b1719; --surface: #122326; --ink: #e6f1f2; --muted: #9db4b8; --line: #233a3e; --brand: #5cc6d6; --brand-ink: #062127; --marker: #ff8a65; --marker-ink: #1a1310; --soft: #162c30; color-scheme: dark } }
+html.p-coral[data-theme="dark"] { --bg: #0b1719; --surface: #122326; --ink: #e6f1f2; --muted: #9db4b8; --line: #233a3e; --brand: #5cc6d6; --brand-ink: #062127; --marker: #ff8a65; --marker-ink: #1a1310; --soft: #162c30; color-scheme: dark }
+
+/* Fondo en movimiento: manchas de color suaves que flotan detrás del contenido */
+.bg-motion { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.bg-motion i { position: absolute; width: 70vmax; height: 70vmax; border-radius: 50%; will-change: transform; }
+.bg-motion i:nth-child(1) { background: radial-gradient(circle, var(--brand) 0, transparent 62%); opacity: .22; top: -28vmax; left: -22vmax; animation: drift1 24s ease-in-out infinite alternate; }
+.bg-motion i:nth-child(2) { background: radial-gradient(circle, var(--marker) 0, transparent 62%); opacity: .30; top: 5vh; right: -34vmax; animation: drift2 30s ease-in-out infinite alternate; }
+.bg-motion i:nth-child(3) { background: radial-gradient(circle, var(--brand) 0, transparent 60%); opacity: .14; bottom: -40vmax; left: 10vw; animation: drift3 36s ease-in-out infinite alternate; }
+@keyframes drift1 { to { transform: translate(22vw, 26vh) scale(1.15); } }
+@keyframes drift2 { to { transform: translate(-26vw, 34vh) scale(.9); } }
+@keyframes drift3 { to { transform: translate(18vw, -30vh) scale(1.2); } }
+.wrap { position: relative; z-index: 1; }
 body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55; padding-inline: 16px; padding-bottom: 84px; }
 @media (min-width: 820px) { body { padding-bottom: 0; padding-inline: 24px; } }
 .wrap { max-width: 1080px; margin-inline: auto; }
@@ -52,7 +74,7 @@ h3 { font-size: 1.2rem; font-weight: 700; }
 p { margin: 0; }
 a { color: inherit; }
 :focus-visible { outline: 3px solid var(--marker); outline-offset: 2px; border-radius: 6px; }
-.mark { background: linear-gradient(transparent 55%, var(--marker) 55%, var(--marker) 92%, transparent 92%); color: inherit; padding-inline: 0.08em; }
+.mark { background: linear-gradient(transparent 55%, color-mix(in srgb, var(--marker) var(--mark-a), transparent) 55%, color-mix(in srgb, var(--marker) var(--mark-a), transparent) 92%, transparent 92%); color: inherit; padding-inline: 0.08em; }
 .eyebrow { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brand); }
 .lead { color: var(--muted); font-size: 1.08rem; max-width: 58ch; }
 
@@ -201,6 +223,7 @@ footer { padding-block: 40px; border-top: 1px solid var(--line); display: grid; 
 <style>html{color-scheme:light}body{margin:0}img{max-width:100%}</style>
 </head>
 <body>
+<div class="bg-motion" aria-hidden="true"><i></i><i></i><i></i></div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7c.1.2 1.9 2.9 4.6 4 1.7.7 2.4.8 3.2.6.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.4-.3Z"/></symbol>
