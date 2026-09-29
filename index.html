@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scora</title>
+<meta name="description" content="Te armamos todo lo que necesitás para lanzar tu emprendimiento, con profesionales verificados, precio cerrado y pagando en pesos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: single mobile-first column, a "kit" collage in the hero, marker-yellow highlights, sticky contact bar on phones */
+:root {
+  --bg: #f4f6f3;
+  --surface: #ffffff;
+  --ink: #0f2a24;
+  --muted: #4b605a;
+  --line: #d6dfda;
+  --brand: #0e5a4a;
+  --brand-ink: #ffffff;
+  --marker: #ffd23f;
+  --marker-ink: #0f2a24;
+  --soft: #e3eee9;
+  --wa: #1c9d57;
+  --danger: #b3261e;
+  --display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --r: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1614; --surface: #13211e; --ink: #e9f2ee; --muted: #9fb3ac; --line: #26382f;
+    --brand: #4cc8a6; --brand-ink: #062019; --marker: #ffd23f; --marker-ink: #14201c;
+    --soft: #172a25; --wa: #3cc57a; --danger: #ff8a80; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c1614; --surface: #13211e; --ink: #e9f2ee; --muted: #9fb3ac; --line: #26382f;
+  --brand: #4cc8a6; --brand-ink: #062019; --marker: #ffd23f; --marker-ink: #14201c;
+  --soft: #172a25; --wa: #3cc57a; --danger: #ff8a80; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55; padding-inline: 16px; padding-bottom: 84px; }
+@media (min-width: 820px) { body { padding-bottom: 0; padding-inline: 24px; } }
+.wrap { max-width: 1080px; margin-inline: auto; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.08; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.8rem, 5.5vw, 2.6rem); font-weight: 800; }
+h3 { font-size: 1.2rem; font-weight: 700; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--marker); outline-offset: 2px; border-radius: 6px; }
+.mark { background: linear-gradient(transparent 55%, var(--marker) 55%, var(--marker) 92%, transparent 92%); color: inherit; padding-inline: 0.08em; }
+.eyebrow { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brand); }
+.lead { color: var(--muted); font-size: 1.08rem; max-width: 58ch; }
+
+/* header */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 18px; }
+.logo { font-family: var(--display); font-weight: 800; font-size: 1.6rem; letter-spacing: -0.03em; text-decoration: none; display: inline-flex; align-items: baseline; gap: 2px; }
+.logo span { width: 9px; height: 9px; border-radius: 50%; background: var(--marker); display: inline-block; box-shadow: 0 0 0 2px var(--ink) inset; }
+.top nav { display: none; gap: 22px; font-weight: 600; font-size: 0.95rem; }
+.top nav a { text-decoration: none; color: var(--muted); }
+.top nav a:hover { color: var(--ink); }
+@media (min-width: 820px) { .top nav { display: flex; } }
+
+/* buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 22px; border-radius: 999px; font: 700 1rem/1 var(--body); text-decoration: none; border: 2px solid transparent; cursor: pointer; transition: transform .15s ease, background-color .15s ease; }
+.btn:active { transform: scale(0.98); }
+.btn-wa { background: var(--wa); color: #fff; }
+.btn-wa:hover { filter: brightness(1.06); }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn-ghost:hover { background: var(--ink); color: var(--bg); }
+.btn-brand { background: var(--brand); color: var(--brand-ink); }
+.btn svg { width: 20px; height: 20px; flex: none; }
+
+/* hero */
+.hero { display: grid; gap: 36px; padding-block: 12px 48px; }
+@media (min-width: 900px) { .hero { grid-template-columns: 1.1fr 0.9fr; align-items: center; padding-block: 32px 72px; } }
+.hero h1 { font-size: clamp(2.3rem, 9vw, 4rem); font-weight: 800; letter-spacing: -0.025em; }
+.hero-copy { display: grid; gap: 20px; min-width: 0; }
+.ctas { display: grid; gap: 12px; }
+@media (min-width: 480px) { .ctas { grid-template-columns: auto auto; justify-content: start; } }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-size: 0.85rem; font-weight: 600; padding: 6px 12px; border-radius: 999px; background: var(--soft); color: var(--ink); }
+
+/* hero kit collage */
+.kit { position: relative; min-height: 360px; max-width: 420px; width: 100%; margin-inline: auto; }
+.kit > div { position: absolute; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 14px 30px -18px rgba(8, 30, 25, .45); }
+.k-ig { left: 0; top: 0; width: 72%; padding: 14px; }
+.k-ig .row { display: flex; gap: 12px; align-items: center; }
+.k-ig .avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--brand); display: grid; place-items: center; color: var(--brand-ink); font: 800 1.1rem var(--display); flex: none; }
+.k-ig .handle { font-weight: 700; font-size: 0.95rem; }
+.k-ig .bio { font-size: 0.78rem; color: var(--muted); line-height: 1.35; }
+.k-ig .hl { display: flex; gap: 8px; margin-block: 12px; }
+.k-ig .hl i { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--line); display: block; background: var(--soft); }
+.k-ig .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.k-ig .grid b { aspect-ratio: 1; border-radius: 4px; background: var(--soft); display: block; max-width: 100%; }
+.k-ig .grid b:nth-child(1), .k-ig .grid b:nth-child(5) { background: var(--marker); }
+.k-ig .grid b:nth-child(3), .k-ig .grid b:nth-child(4) { background: var(--brand); opacity: .85; }
+.k-logo { right: 0; top: 28px; width: 40%; aspect-ratio: 1; display: grid; place-items: center; }
+.k-logo .mono { width: 62%; aspect-ratio: 1; border-radius: 50%; background: var(--marker); display: grid; place-items: center; font: 800 2rem var(--display); color: var(--marker-ink); }
+.k-logo small { position: absolute; bottom: 8px; font-size: 0.68rem; font-weight: 700; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+.k-pay { right: 4%; bottom: 0; width: 70%; padding: 14px 16px; display: grid; gap: 8px; }
+.k-pay .ttl { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.92rem; }
+.k-pay .ttl svg { width: 18px; height: 18px; color: var(--brand); }
+.k-pay .bar { height: 8px; border-radius: 99px; background: var(--soft); overflow: hidden; }
+.k-pay .bar i { display: block; height: 100%; width: 100%; background: var(--brand); }
+.k-pay .foot { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); font-weight: 600; }
+.k-pay .ok { color: var(--brand); }
+
+section { padding-block: 56px; }
+@media (min-width: 820px) { section { padding-block: 80px; } }
+.head { display: grid; gap: 12px; margin-bottom: 32px; }
+
+/* steps */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; counter-reset: s; }
+@media (min-width: 720px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .steps { grid-template-columns: repeat(4, 1fr); } }
+.steps li { counter-increment: s; display: grid; gap: 8px; align-content: start; padding: 22px 20px; border-top: 3px solid var(--ink); background: var(--surface); border-radius: 0 0 var(--r) var(--r); }
+.steps li::before { content: counter(s); font: 800 2.4rem/1 var(--display); color: var(--brand); }
+.steps p { color: var(--muted); font-size: 0.98rem; }
+
+/* packages */
+.band { background: var(--ink); color: var(--bg); margin-inline: -16px; padding-inline: 16px; }
+@media (min-width: 820px) { .band { margin-inline: -24px; padding-inline: 24px; } }
+.band .eyebrow { color: var(--marker); }
+.band .lead { color: color-mix(in srgb, var(--bg) 75%, var(--ink)); }
+.pkgs { display: grid; gap: 16px; }
+@media (min-width: 900px) { .pkgs { grid-template-columns: repeat(3, 1fr); align-items: stretch; } }
+.pkg { background: var(--surface); color: var(--ink); border-radius: 20px; padding: 26px 22px; display: grid; gap: 16px; grid-template-rows: auto auto 1fr auto; position: relative; }
+.pkg.feat { outline: 3px solid var(--marker); }
+.pkg .tag { position: absolute; top: -12px; right: 20px; background: var(--marker); color: var(--marker-ink); font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 99px; letter-spacing: .04em; }
+.pkg h3 { font-size: 1.6rem; }
+.pkg .for { color: var(--muted); font-size: 0.95rem; }
+.pkg ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; align-content: start; }
+.pkg li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; font-size: 0.98rem; }
+.pkg li svg { width: 20px; height: 20px; color: var(--brand); margin-top: 2px; }
+.pkg li.inc { font-weight: 700; }
+.pkg .price { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; border-top: 1px dashed var(--line); }
+.pkg .price span { font: 800 1.3rem var(--display); }
+.pkg .price a { font-weight: 700; font-size: 0.95rem; color: var(--brand); }
+
+/* guarantees */
+.gs { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
+@media (min-width: 640px) { .gs { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .gs { grid-template-columns: repeat(3, 1fr); } }
+.g { background: var(--surface); padding: 24px 22px; display: grid; gap: 8px; align-content: start; }
+.g svg { width: 28px; height: 28px; color: var(--brand); }
+.g p { color: var(--muted); font-size: 0.97rem; }
+.g.cta-cell { background: var(--marker); color: var(--marker-ink); }
+.g.cta-cell p { color: var(--marker-ink); }
+.g.cta-cell .btn-ghost { color: var(--marker-ink); border-color: var(--marker-ink); }
+.g.cta-cell .btn-ghost:hover { background: var(--marker-ink); color: var(--marker); }
+
+/* testimonials */
+.soon { border: 2px dashed var(--line); border-radius: 20px; padding: 36px 22px; display: grid; gap: 12px; justify-items: start; }
+.soon .quote { font: 800 4rem/0.6 var(--display); color: var(--marker); }
+
+/* faq */
+.faq { display: grid; gap: 10px; max-width: 780px; }
+.faq details { background: var(--surface); border-radius: var(--r); border: 1px solid var(--line); }
+.faq summary { cursor: pointer; list-style: none; padding: 18px 20px; font-weight: 700; display: flex; justify-content: space-between; gap: 16px; align-items: center; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font: 700 1.5rem/1 var(--display); color: var(--brand); flex: none; transition: transform .2s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { padding: 0 20px 20px; color: var(--muted); max-width: 65ch; }
+
+/* contact */
+.contact { display: grid; gap: 32px; }
+@media (min-width: 900px) { .contact { grid-template-columns: 0.8fr 1.2fr; align-items: start; } }
+.wa-card { background: var(--soft); border-radius: 20px; padding: 24px 22px; display: grid; gap: 14px; }
+.wa-num { font: 800 clamp(1.5rem, 6vw, 1.9rem)/1.1 var(--display); letter-spacing: -0.01em; user-select: all; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.wa-note { font-size: 0.8rem; color: var(--muted); }
+.copy { background: none; border: 0; padding: 0; font: 600 0.9rem var(--body); color: var(--brand); text-decoration: underline; cursor: pointer; justify-self: start; }
+form { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 24px 20px; display: grid; gap: 16px; min-width: 0; }
+@media (min-width: 640px) { form { padding: 32px; grid-template-columns: 1fr 1fr; } form .full { grid-column: 1 / -1; } }
+.field { display: grid; gap: 6px; min-width: 0; }
+label { font-weight: 700; font-size: 0.92rem; }
+label .opt { font-weight: 500; color: var(--muted); }
+input, select, textarea { width: 100%; font: 400 16px/1.4 var(--body); color: var(--ink); background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; padding: 13px 14px; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 25%, transparent); }
+textarea { min-height: 120px; resize: vertical; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.err { color: var(--danger); font-size: 0.85rem; font-weight: 600; }
+.form-foot { display: grid; gap: 10px; }
+.form-foot small { color: var(--muted); font-size: 0.82rem; }
+.result { border-radius: 16px; padding: 22px 20px; display: grid; gap: 12px; }
+.result.ok { background: var(--soft); }
+.result.alt { background: color-mix(in srgb, var(--marker) 22%, var(--surface)); }
+.result h3 { font-size: 1.35rem; }
+
+footer { padding-block: 40px; border-top: 1px solid var(--line); display: grid; gap: 8px; color: var(--muted); font-size: 0.9rem; }
+
+/* mobile sticky contact bar */
+.sticky { position: fixed; left: 0; right: 0; bottom: 0; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(8px); border-top: 1px solid var(--line); z-index: 10; }
+.sticky .btn { width: 100%; }
+@media (min-width: 820px) { .sticky { display: none; } }
+</style>
+<style>html{color-scheme:light}body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7c.1.2 1.9 2.9 4.6 4 1.7.7 2.4.8 3.2.6.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.4-.3Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3 4.5 6v5.5c0 4.6 3.2 8.3 7.5 9.5 4.3-1.2 7.5-4.9 7.5-9.5V6L12 3Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m8.8 12 2.2 2.2 4.2-4.4"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3.5 12.5V4.5a1 1 0 0 1 1-1h8l8 8-9 9-8-8Z"/><circle cx="8" cy="8" r="1.6" fill="currentColor"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 8h13l-3.5-3.5M20 16H7l3.5 3.5"/></symbol>
+  <symbol id="i-peso" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M10 16.5v-9h2.8a2.6 2.6 0 0 1 0 5.2H10M8 10h7.5M8 12.7h7.5"/></symbol>
+</svg>
+
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="#inicio" aria-label="Scora, inicio">scora<span></span></a>
+    <nav aria-label="Secciones">
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#paquetes">Paquetes</a>
+      <a href="#garantias">Garantías</a>
+      <a href="#preguntas">Preguntas</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <main id="inicio">
+    <div class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Para emprendedores de toda Argentina</p>
+        <h1>Te armamos todo lo que necesitás para <span class="mark">lanzar tu emprendimiento</span></h1>
+        <p class="lead">Logo, Instagram, web y todo lo demás, con profesionales verificados, precio cerrado y pagando en pesos. Vos hablás solo con nosotros: coordinamos todo el equipo por vos.</p>
+        <div class="ctas">
+          <a class="btn btn-brand" href="#formulario">Dejanos tus datos</a>
+          <a class="btn btn-ghost" href="#paquetes">Ver paquetes</a>
+        </div>
+        <div class="chips" aria-label="Lo que te garantizamos">
+          <span class="chip">Profesionales verificados</span>
+          <span class="chip">Precio cerrado</span>
+          <span class="chip">Pago protegido</span>
+          <span class="chip">En pesos</span>
+        </div>
+      </div>
+
+      <div class="kit" aria-hidden="true">
+        <div class="k-ig">
+          <div class="row">
+            <div class="avatar">LM</div>
+            <div>
+              <div class="handle">@lamielera.nqn</div>
+              <div class="bio">Miel de monte · Envíos a todo el país · Pedidos por DM</div>
+            </div>
+          </div>
+          <div class="hl"><i></i><i></i><i></i><i></i></div>
+          <div class="grid"><b></b><b></b><b></b><b></b><b></b><b></b></div>
+        </div>
+        <div class="k-logo"><div class="mono">lm</div><small>Identidad</small></div>
+        <div class="k-pay">
+          <div class="ttl"><svg><use href="#i-lock"/></svg>Pago protegido</div>
+          <div class="bar"><i></i></div>
+          <div class="foot"><span>Trabajo entregado</span><span class="ok">Liberado al aprobar</span></div>
+        </div>
+      </div>
+    </div>
+
+    <section id="como-funciona">
+      <div class="head">
+        <p class="eyebrow">Cómo funciona</p>
+        <h2>Cuatro pasos y listo</h2>
+      </div>
+      <ol class="steps">
+        <li><h3>Nos contás qué necesitás</h3><p>Completás el formulario y te escribimos nosotros. Contanos de qué es tu emprendimiento y en qué etapa estás.</p></li>
+        <li><h3>Te proponemos el paquete</h3><p>Armamos una propuesta a medida con precio cerrado, plazos y los profesionales que van a trabajar.</p></li>
+        <li><h3>Pagás en pesos, protegido</h3><p>El pago queda retenido y no se libera hasta que el trabajo esté como lo acordamos.</p></li>
+        <li><h3>Recibís el trabajo y lo aprobás</h3><p>Revisás todo, pedís los ajustes que hagan falta y, cuando lo aprobás, recién ahí se libera el pago.</p></li>
+      </ol>
+    </section>
+
+    <section id="paquetes" class="band">
+      <div class="head">
+        <p class="eyebrow">Paquete Emprendedor</p>
+        <h2>Elegí hasta dónde querés llegar</h2>
+        <p class="lead">Tres niveles para arrancar con todo. Cada propuesta se arma según tu rubro, así que el precio lo charlamos con vos.</p>
+      </div>
+      <div class="pkgs">
+        <article class="pkg">
+          <h3>Básico</h3>
+          <p class="for">Para arrancar con una imagen prolija y un Instagram que venda.</p>
+          <ul>
+            <li><svg><use href="#i-check"/></svg>Logo e identidad visual simple</li>
+            <li><svg><use href="#i-check"/></svg>Perfil de Instagram armado: bio y destacadas</li>
+            <li><svg><use href="#i-check"/></svg>Tus primeras 6 publicaciones</li>
+          </ul>
+          <div class="price"><span>Consultá</span><a href="#formulario" data-pkg="Básico">Quiero este</a></div>
+        </article>
+        <article class="pkg feat">
+          <span class="tag">EL MÁS ELEGIDO</span>
+          <h3>Completo</h3>
+          <p class="for">Para vender también fuera de Instagram y seguir publicando por tu cuenta.</p>
+          <ul>
+            <li class="inc"><svg><use href="#i-check"/></svg>Todo lo del Básico</li>
+            <li><svg><use href="#i-check"/></svg>Web simple o tienda online</li>
+            <li><svg><use href="#i-check"/></svg>Plantillas para seguir publicando</li>
+          </ul>
+          <div class="price"><span>Consultá</span><a href="#formulario" data-pkg="Completo">Quiero este</a></div>
+        </article>
+        <article class="pkg">
+          <h3>Premium</h3>
+          <p class="for">Para despegar sin preocuparte por las redes ni por los papeles.</p>
+          <ul>
+            <li class="inc"><svg><use href="#i-check"/></svg>Todo lo del Completo</li>
+            <li><svg><use href="#i-check"/></svg>1 mes de manejo de redes</li>
+            <li><svg><use href="#i-check"/></svg>Orientación contable para darte de alta</li>
+          </ul>
+          <div class="price"><span>Consultá</span><a href="#formulario" data-pkg="Premium">Quiero este</a></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="garantias">
+      <div class="head">
+        <p class="eyebrow">Garantías</p>
+        <h2>Trabajás tranquilo, de principio a fin</h2>
+      </div>
+      <div class="gs">
+        <div class="g"><svg><use href="#i-shield"/></svg><h3>Profesionales verificados</h3><p>Chequeamos identidad, trabajos anteriores y referencias antes de sumar a alguien al equipo.</p></div>
+        <div class="g"><svg><use href="#i-tag"/></svg><h3>Precio cerrado</h3><p>Lo que acordamos es lo que pagás. Sin extras que aparecen a mitad de camino.</p></div>
+        <div class="g"><svg><use href="#i-lock"/></svg><h3>Pago protegido</h3><p>Tu plata queda retenida y se libera recién cuando aprobás el trabajo.</p></div>
+        <div class="g"><svg><use href="#i-swap"/></svg><h3>Reemplazo si algo falla</h3><p>Si un profesional no cumple, lo reemplazamos y seguimos hasta terminar lo que acordamos.</p></div>
+        <div class="g"><svg><use href="#i-peso"/></svg><h3>Pagás en pesos</h3><p>Sin dólares ni cuentas del exterior. Pagás en pesos, como pagás todo lo demás.</p></div>
+        <div class="g cta-cell"><h3>¿Tenés dudas?</h3><p>Dejanos tus datos y te responde una persona, no un bot.</p><a class="btn btn-ghost" href="#formulario" style="justify-self:start">Dejanos tus datos</a></div>
+      </div>
+    </section>
+
+    <section id="testimonios">
+      <div class="soon">
+        <span class="quote" aria-hidden="true">“</span>
+        <p class="eyebrow">Testimonios</p>
+        <h2>Pronto, nuestros primeros casos</h2>
+        <p class="lead">Estamos acompañando a los primeros emprendedores. Muy pronto vas a poder ver acá cómo quedaron sus marcas.</p>
+      </div>
+    </section>
+
+    <section id="preguntas">
+      <div class="head">
+        <p class="eyebrow">Preguntas frecuentes</p>
+        <h2>Lo que más nos preguntan</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>¿Cuánto cuesta?</summary>
+          <p>Depende de tu rubro y de lo que necesites. Contanos tu proyecto y te pasamos una propuesta con precio cerrado, antes de que pagues nada.</p>
+        </details>
+        <details>
+          <summary>¿Con quién hablo durante el proyecto?</summary>
+          <p>Siempre con Scora. Nosotros coordinamos a cada profesional (diseño, web, redes, contable), así no tenés que perseguir a nadie.</p>
+        </details>
+        <details>
+          <summary>¿Cómo funciona el pago protegido?</summary>
+          <p>Pagás en pesos cuando confirmás la propuesta. Ese pago queda retenido y se libera al profesional solo cuando recibís el trabajo y lo aprobás.</p>
+        </details>
+        <details>
+          <summary>¿Qué pasa si algo sale mal?</summary>
+          <p>Antes de aprobar podés pedir ajustes. Si el profesional no cumple con lo acordado, lo reemplazamos por otro y seguimos hasta terminar.</p>
+        </details>
+        <details>
+          <summary>¿Trabajan en todo el país? ¿Cuánto tarda?</summary>
+          <p>Sí, todo se hace online, desde cualquier provincia. Los plazos dependen del paquete y te los confirmamos en la propuesta, antes de que pagues.</p>
+        </details>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="head">
+        <p class="eyebrow">Contacto</p>
+        <h2>Contanos tu idea y arrancamos</h2>
+      </div>
+      <div class="contact">
+        <div class="wa-card">
+          <h3>Te contactamos nosotros</h3>
+          <p>Completá el formulario con tus datos y lo que necesitás. Leemos cada consulta y te escribimos por email o por WhatsApp, si nos dejás tu número, con una propuesta a medida.</p>
+          <p class="wa-note">Sin compromiso: recién pagás si aceptás la propuesta.</p>
+        </div>
+
+        <div id="formulario">
+          <form id="lead-form" novalidate>
+            <div class="hp" aria-hidden="true"><label for="f-empresa">Empresa</label><input id="f-empresa" name="empresa" tabindex="-1" autocomplete="off"></div>
+            <div class="field">
+              <label for="f-nombre">Nombre</label>
+              <input id="f-nombre" name="nombre" autocomplete="name" required maxlength="100">
+            </div>
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="150">
+            </div>
+            <div class="field">
+              <label for="f-wa">WhatsApp <span class="opt">(opcional)</span></label>
+              <input id="f-wa" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" placeholder="Ej. 11 2345 6789" maxlength="30">
+            </div>
+            <div class="field">
+              <label for="f-rubro">Rubro del emprendimiento</label>
+              <input id="f-rubro" name="rubro" list="rubros" required maxlength="80" placeholder="Ej. pastelería, indumentaria">
+              <datalist id="rubros">
+                <option value="Gastronomía"></option>
+                <option value="Indumentaria y accesorios"></option>
+                <option value="Belleza y estética"></option>
+                <option value="Deco y hogar"></option>
+                <option value="Salud y bienestar"></option>
+                <option value="Servicios profesionales"></option>
+                <option value="Artesanías"></option>
+              </datalist>
+            </div>
+            <div class="field full">
+              <label for="f-paquete">¿Qué paquete te interesa?</label>
+              <select id="f-paquete" name="paquete" required>
+                <option value="">Elegí una opción</option>
+                <option>Básico</option>
+                <option>Completo</option>
+                <option>Premium</option>
+                <option>Todavía no sé, quiero que me asesoren</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="f-msg">Contanos un poco más</label>
+              <textarea id="f-msg" name="mensaje" maxlength="1500" placeholder="¿Qué vendés? ¿Ya tenés algo armado? ¿Para cuándo lo necesitás?"></textarea>
+            </div>
+            <div class="form-foot full">
+              <p class="err" id="form-err" role="alert" hidden></p>
+              <button class="btn btn-brand" type="submit" id="send">Enviar consulta</button>
+              <small>Usamos tus datos solo para responderte.</small>
+            </div>
+          </form>
+
+          <div class="result ok" id="ok" hidden role="status">
+            <h3>¡Listo, ya tenemos tu consulta!</h3>
+            <p>Te vamos a escribir pronto con una propuesta.</p>
+            <button class="copy" type="button" id="again">Enviar otra consulta</button>
+          </div>
+
+          <div class="result alt" id="alt" hidden role="status">
+            <h3>No pudimos enviar tu consulta</h3>
+            <p>Hubo un problema de conexión. Revisá tu internet y probá de nuevo en unos minutos.</p>
+            <button class="copy" type="button" id="alt-back">Volver al formulario</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <a class="logo" href="#inicio">scora<span></span></a>
+    <p>Profesionales verificados para lanzar tu emprendimiento. Hecho en Argentina.</p>
+  </footer>
+</div>
+
+<div class="sticky"><a class="btn btn-brand" href="#formulario">Dejanos tus datos</a></div>
+
+<script>
+// Preselecciona el paquete desde las tarjetas
+document.querySelectorAll("[data-pkg]").forEach(a => a.addEventListener("click", () => {
+  document.getElementById("f-paquete").value = a.dataset.pkg;
+}));
+
+const form = document.getElementById("lead-form");
+const errEl = document.getElementById("form-err");
+const sendBtn = document.getElementById("send");
+const okEl = document.getElementById("ok");
+const altEl = document.getElementById("alt");
+
+// URL de la aplicación web de Google Apps Script que guarda cada consulta en la planilla.
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbz_dRooBvSEptHzxge6znJaHKjJoGcDuoNtcUSs2Y43i9NFC2tl8pZ-l3jfoJyfkMHF/exec";
+
+function readForm() {
+  const f = new FormData(form);
+  const v = k => String(f.get(k) || "").trim();
+  return { nombre: v("nombre"), email: v("email"), whatsapp: v("whatsapp"), rubro: v("rubro"), paquete: v("paquete"), mensaje: v("mensaje"), empresa: v("empresa") };
+}
+function validate(d) {
+  if (!d.nombre) return ["f-nombre", "Poné tu nombre así sabemos cómo llamarte."];
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return ["f-email", "Revisá el email: tiene que tener la forma nombre@dominio.com."];
+  if (d.whatsapp && d.whatsapp.replace(/\D/g, "").length < 8) return ["f-wa", "El WhatsApp parece incompleto. Poné el número con característica, o dejalo vacío."];
+  if (!d.rubro) return ["f-rubro", "Contanos de qué rubro es tu emprendimiento."];
+  if (!d.paquete) return ["f-paquete", "Elegí un paquete, o la opción de que te asesoremos."];
+  return null;
+}
+function show(el) { form.hidden = true; okEl.hidden = el !== okEl; altEl.hidden = el !== altEl; el.scrollIntoView({ block: "center" }); }
+function backToForm() { okEl.hidden = true; altEl.hidden = true; form.hidden = false; }
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const d = readForm();
+  const bad = validate(d);
+  if (bad) { errEl.textContent = bad[1]; errEl.hidden = false; document.getElementById(bad[0]).focus(); return; }
+  errEl.hidden = true;
+  sendBtn.disabled = true; sendBtn.textContent = "Enviando…";
+  let saved = false;
+  try {
+    if (!/^https:\/\/script\.google\.com\//.test(SHEET_ENDPOINT)) throw new Error("Falta configurar SHEET_ENDPOINT");
+    // Apps Script no devuelve CORS: se envía en modo no-cors y se considera enviado si la red no falla.
+    await fetch(SHEET_ENDPOINT, { method: "POST", mode: "no-cors", body: new URLSearchParams(d) });
+    saved = true;
+  } catch (err) { console.error(err); saved = false; }
+  sendBtn.disabled = false; sendBtn.textContent = "Enviar consulta";
+  if (saved) { form.reset(); show(okEl); } else { show(altEl); }
+});
+document.getElementById("again").addEventListener("click", backToForm);
+document.getElementById("alt-back").addEventListener("click", backToForm);
+</script>
+
+</body>
+</html>
